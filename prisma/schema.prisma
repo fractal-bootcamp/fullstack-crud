@@ -12,3 +12,30 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+// model Book {
+//   id   String @id @default(cuid())
+//   name String
+//   ISBN String
+
+//   // keys
+//   authorId String
+//   memberId String // member that currently has this book checked out
+
+//   //relations
+//   bookAuthor Author @relation(fields: [authorId], references: [id])
+//   bookMember Member @relation(fields: [memberId], references: [id])
+// }
+
+model Author {
+  id        String @id @default(cuid())
+  name      String
+  biography String
+}
+
+model Member {
+  id      String @id @default(cuid())
+  name    String
+  email   String
+  address String
+}
