@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client"
+import { Author, PrismaClient } from "@prisma/client"
 
 
 const prisma = new PrismaClient()
@@ -16,9 +16,28 @@ so I'll just create a branch includes some dummy data and tests to see if
 i can properly create the rows in prisma
 
 */
+type AuthorInput = {
+    name: string
+    biography: string
+
+}
+
+const dummyAuthor: AuthorInput = {
+    name: "Kate DiCamillo",
+    biography: "A children's book author"
+
+}
 
 
-export function createAuthor() {
+// async
+export async function createAuthor(input: AuthorInput) {
+
+    const newUser = await prisma.author.create({
+        data: input
+    })
+
+    console.log("new user created:" + newUser)
+
 
 }
 
@@ -50,7 +69,7 @@ export default function AuthorSignUp() {
 
                     <div className="justify-center">
 
-                        <button className="btn btn-outline">Submit</button>
+                        <button onClick={() => { createAuthor(dummyAuthor) }} className="btn btn-outline">Submit</button>
 
                     </div>
 
