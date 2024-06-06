@@ -15,6 +15,7 @@ export type AuthorInput = {
 // async
 export async function createAuthor(input: AuthorInput) {
 
+    debugger;
     const newUser = await prisma.author.create({
         data: input
     })

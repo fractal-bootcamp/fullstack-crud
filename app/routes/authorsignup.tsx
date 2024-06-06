@@ -1,4 +1,6 @@
-import { AuthorInput, createAuthor } from "~/service/Author"
+import { ActionFunction, ActionFunctionArgs } from "@remix-run/node"
+import { Form } from "@remix-run/react"
+import { AuthorInput, createAuthor } from "~/service/Author.server"
 
 
 /*
@@ -22,6 +24,28 @@ const dummyAuthor: AuthorInput = {
 
 }
 
+export const action: ActionFunction = async ({ request }: ActionFunctionArgs) => {
+    console.log("action triggered")
+    debugger;
+    const formData = await request.formData();
+    console.log(formData)
+    console.log(formData.get("biography"))
+
+    console.log(await createAuthor(dummyAuthor))
+
+    // only do this if name and biography 
+
+    // await createAuthor(
+    //     {
+    //         name: formData.get("name"),
+    //         biography: formData.get("biography")
+    //     }
+    // )
+
+
+
+}
+
 
 
 export default function AuthorSignUp() {
@@ -39,20 +63,23 @@ export default function AuthorSignUp() {
                 {/* body */}
                 <div className="flex flex-col justify-start ">
 
-                    <div className="items-center">
-                        Name
-                    </div>
-                    <input type="text" placeholder="Type here" className="input input-bordered w-full max-w-xs" />
-
-                    <div className="items-center">
-                        Biography
-                    </div>
-                    <input type="text" placeholder="Type here" className="input input-bordered w-full max-w-xs" />
 
 
                     <div className="justify-center">
 
-                        <button onClick={() => { createAuthor(dummyAuthor) }} className="btn btn-outline">Submit</button>
+                        <form action="/authorsignup">
+                            <div className="items-center">
+                                Name
+                            </div>
+                            <input id="name" type="text" placeholder="Type here" className="input input-bordered w-full max-w-xs" />
+
+                            <div className="items-center">
+                                Biography
+                            </div>
+                            <input id="biography" type="text" placeholder="Type here" className="input input-bordered w-full max-w-xs" />
+                            <input type="submit" name="Submit" className="btn btn-outline" />
+                        </form>
+
 
                     </div>
 
