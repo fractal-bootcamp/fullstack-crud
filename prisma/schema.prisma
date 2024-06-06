@@ -31,7 +31,6 @@ model Author {
   id        String @id @default(cuid())
   name      String
   biography String
-  Book      Book[]
 }
 
 model Member {
@@ -39,5 +38,4 @@ model Member {
   name    String
   email   String
   address String
-  Book    Book[]
 }
